@@ -1,0 +1,21 @@
+query Input {
+  cart {
+    lines {
+      id
+      quantity
+      merchandise {
+        __typename
+        ... on ProductVariant {
+          id
+          title
+          isByob: metafield(
+            namespace: "byob"
+            key: "is_byob"
+          ) {
+            value
+          }
+        }
+      }
+    }
+  }
+}

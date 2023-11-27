@@ -1,0 +1,17 @@
+{
+    "name": "bundle",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "dependencies": {
+      "@shopify/app": "^3.49.2",
+      "@shopify/cli": "^3.49.2",
+      "@shopify/shopify_function": "0.1.0",
+      "javy": "0.1.1"
+    },
+      "scripts": {
+      "dev": "shopify app dev -s umesh-dev-store",
+      "deploy": "shopify app deploy --no-release"
+    }
+  }
+  

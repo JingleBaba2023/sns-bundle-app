@@ -17,8 +17,15 @@ export default /**
  * @returns {FunctionResult}
  */
 (input) => {
+  let {customBundleTotal = 0 } = input.cart || {};
+  let {customBundleDiscountedPrice = 0} = input.cart || {};
+let totalAmount = customBundleTotal || 0; 
+if(customBundleDiscountedPrice && customBundleDiscountedPrice) {
+  totalAmount = customBundleTotal - customBundleDiscountedPrice;
+}
+  
     const inputTargets = input.cart.lines
-      .filter(line => line.merchandise.isByob)
+      .filter(line => {const isBundle = line.isBundle || true;  if(isBundle) {return line}})
       // @ts-ignore
       const targets = inputTargets.map(({id, quantity}) => { return {cartLineId:id, quantity}});
       const operations =  [
@@ -28,7 +35,7 @@ export default /**
             "parentVariantId": "gid://shopify/ProductVariant/45408078823703",
             "price": {
               "percentageDecrease": {
-                "value": 5
+                "value": totalAmount
               }
             },
             "image": null,

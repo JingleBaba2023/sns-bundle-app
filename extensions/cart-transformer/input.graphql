@@ -1,21 +1,25 @@
 query Input {
   cart {
+      customBundleTotal: attribute(key:"custom_bundle_total"){
+        value
+      }
+      customBundleDiscountedPrice: attribute(key:"custom_bundle_discounted_price"){
+        value
+      }
     lines {
       id
       quantity
+      isBundle: attribute(key:"isBundle"){
+        value
+      }
       merchandise {
         __typename
         ... on ProductVariant {
           id
           title
-          isByob: metafield(
-            namespace: "byob"
-            key: "is_byob"
-          ) {
-            value
-          }
         }
       }
+      
     }
   }
 }

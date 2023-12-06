@@ -6,6 +6,7 @@
     "shopify": "npm exec -- shopify",
     "typegen": "npm exec -- shopify app function typegen",
     "build": "npm exec -- shopify app function build",
+    "deploy": "shopify app deploy",
     "preview": "npm exec -- shopify app function run",
     "test": "vitest"
   },

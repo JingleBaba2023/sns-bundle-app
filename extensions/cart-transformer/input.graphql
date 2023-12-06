@@ -4,13 +4,13 @@ query Input {
     lines {
       id
       quantity
-      isBundle: attribute(key:"isBundle"){
+      isBundle: attribute(key:"_isBundle"){
         value
       }
-      customBundleTotal: attribute(key:"custom_bundle_total"){
+      customBundleTotal: attribute(key:"_customBundleTotal"){
         value
       }
-      customBundleDiscountedPrice: attribute(key:"custom_bundle_discounted_price"){
+      customBundleDiscountedPrice: attribute(key:"_customBundleDiscountedPrice"){
         value
       }
       merchandise {

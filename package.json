@@ -11,7 +11,7 @@
     },
       "scripts": {
       "dev": "shopify app dev -s umesh-dev-store",
-      "deploy": "shopify app deploy --no-release"
+      "deploy": "shopify app deploy"
     }
   }
   

@@ -36,7 +36,7 @@ let customBundleTotal = 0;
         {
           "merge": {
             "cartLines": targets,
-            "parentVariantId": "gid://shopify/Product/8139303420055",
+            "parentVariantId": "gid://shopify/ProductVariant/43497517842583",
             "price": {
               "percentageDecrease": {
                 "value": customBundleTotal

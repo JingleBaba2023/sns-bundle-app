@@ -17,25 +17,29 @@ export default /**
  * @returns {FunctionResult}
  */
 (input) => {
-  let {customBundleTotal = 0 } = input.cart || {};
-  let {customBundleDiscountedPrice = 0} = input.cart || {};
-let totalAmount = customBundleTotal || 0; 
-if(customBundleDiscountedPrice && customBundleDiscountedPrice) {
-  totalAmount = customBundleTotal - customBundleDiscountedPrice;
-}
-  
+// @ts-ignore
+let customBundleTotal = 0;
     const inputTargets = input.cart.lines
-      .filter(line => {const isBundle = line.isBundle || true;  if(isBundle) {return line}})
+      // @ts-ignore
+      .filter(line => {const isBundle = line.isBundle; if(isBundle) {return line}})
       // @ts-ignore
       const targets = inputTargets.map(({id, quantity}) => { return {cartLineId:id, quantity}});
+      // @ts-ignore
+      let customBundleOriginalPrice = targets[0]?.customBundleTotal || 0;
+      // @ts-ignore
+      let customDiscountedTotal = targets[0]?.customBundleDiscountedPrice || 0;
+      // @ts-ignore 
+      customBundleTotal = customBundleOriginalPrice - customDiscountedTotal;
+
+      customBundleTotal = ((customBundleOriginalPrice / customBundleTotal) * 100);
       const operations =  [
         {
           "merge": {
             "cartLines": targets,
-            "parentVariantId": "gid://shopify/ProductVariant/45408078823703",
+            "parentVariantId": "gid://shopify/Product/8139303420055",
             "price": {
               "percentageDecrease": {
-                "value": totalAmount
+                "value": customBundleTotal
               }
             },
             "image": null,

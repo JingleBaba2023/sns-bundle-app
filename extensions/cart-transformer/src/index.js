@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 
 /**
  * @typedef {import("../generated/api").InputQuery} InputQuery
@@ -26,15 +26,16 @@ let customBundleTotal = 0;
       const targets = inputTargets.map(({id, quantity}) => { return {cartLineId:id, quantity}});
       if(targets.length) {
         // @ts-ignore
-        let customBundleOriginalPrice = targets[0]?.customBundleTotal?.value || 0;
+        let customBundleOriginalPrice = inputTargets[0]?.customBundleTotal?.value || 0;
         // @ts-ignore
-        let customDiscountedTotal =  targets[0]?.customBundleDiscountedPrice?.value || 0;
+        let customDiscountedTotal =  inputTargets[0]?.customBundleDiscountedPrice?.value || 0;
         // @ts-ignore 
         customBundleTotal = customBundleOriginalPrice - customDiscountedTotal;
        if(customBundleTotal > 0) {
-        customBundleTotal = ((customBundleOriginalPrice / customBundleTotal) * 100);
+        customBundleTotal = (100 - ((customDiscountedTotal / customBundleOriginalPrice) * 100));
        }
       }
+   
       const operations =  [
         {
           "merge": {

@@ -1,6 +1,5 @@
 query Input {
   cart {
-
     lines {
       id
       quantity

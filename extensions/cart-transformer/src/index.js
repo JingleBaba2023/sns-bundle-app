@@ -21,17 +21,20 @@ export default /**
 let customBundleTotal = 0;
     const inputTargets = input.cart.lines
       // @ts-ignore
-      .filter(line => {const isBundle = line.isBundle; if(isBundle) {return line}})
+      .filter(line => {const isBundle = line.isBundle?.value || false; if(JSON.parse(isBundle)){return line}})
       // @ts-ignore
       const targets = inputTargets.map(({id, quantity}) => { return {cartLineId:id, quantity}});
-      // @ts-ignore
-      let customBundleOriginalPrice = targets[0]?.customBundleTotal || 0;
-      // @ts-ignore
-      let customDiscountedTotal = targets[0]?.customBundleDiscountedPrice || 0;
-      // @ts-ignore 
-      customBundleTotal = customBundleOriginalPrice - customDiscountedTotal;
-
-      customBundleTotal = ((customBundleOriginalPrice / customBundleTotal) * 100);
+      if(targets.length) {
+        // @ts-ignore
+        let customBundleOriginalPrice = targets[0]?.customBundleTotal?.value || 0;
+        // @ts-ignore
+        let customDiscountedTotal =  targets[0]?.customBundleDiscountedPrice?.value || 0;
+        // @ts-ignore 
+        customBundleTotal = customBundleOriginalPrice - customDiscountedTotal;
+       if(customBundleTotal > 0) {
+        customBundleTotal = ((customBundleOriginalPrice / customBundleTotal) * 100);
+       }
+      }
       const operations =  [
         {
           "merge": {
@@ -43,10 +46,11 @@ let customBundleTotal = 0;
               }
             },
             "image": null,
-            "title": null
+            "title": "Build Your Own Box"
           }
         }
       ]
+
     if (!targets.length || targets.length < 2) {
       console.error("No cart lines qualify bundles.");
       return NO_CHANGES;

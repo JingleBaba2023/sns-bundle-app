@@ -30,7 +30,7 @@ let customBundleTotal = 0;
         // @ts-ignore
         let customDiscountedTotal =  inputTargets[0]?.customBundleDiscountedPrice?.value || 0;
         // @ts-ignore 
-        customBundleTotal = customBundleOriginalPrice - customDiscountedTotal;
+        customBundleTotal = parseInt(customBundleOriginalPrice) - parseInt(customDiscountedTotal);
        if(customBundleTotal > 0) {
         customBundleTotal = (100 - ((customDiscountedTotal / customBundleOriginalPrice) * 100));
        }
